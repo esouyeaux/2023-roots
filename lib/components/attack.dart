@@ -13,7 +13,7 @@ class Attack extends SpriteAnimationComponent with HasGameRef<RootsGame> {
 
     Attack(attack_size, this.attackFrequency, this.attackDuration, this.attack_spawn) : super(
     position: Vector2(0.0, 0.0),
-    size: Vector2.all(attack_size)
+    size: attack_size
     );
 
 }

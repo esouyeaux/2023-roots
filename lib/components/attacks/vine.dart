@@ -2,10 +2,11 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import '../attack.dart';
 
-class Attack2 extends Attack {
+class Vine extends Attack {
   late final SpriteAnimation _standingAnimation;
+  double turn_speed = 2;
 
-    Attack2 () : super (Vector2.all(50.0), 7, 3, Vector2(-25, 0));
+    Vine () : super (Vector2(200.0, 50), 5, 4, Vector2(0, 0));
 
   @override
   Future<void> onLoad() async {
@@ -14,11 +15,18 @@ class Attack2 extends Attack {
 
     Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
-      image: await gameRef.images.load("attack02_spritesheet.png"),
-      srcSize: Vector2(32.0, 32.0),
+      image: await gameRef.images.load("attack04_spritesheet.png"),
+      srcSize: Vector2(64.0, 16.0),
     );
     _standingAnimation
     = spriteSheet.createAnimation(row: 0, stepTime: 1000000, to: 1);
+  }
+
+  @override
+  void update(double delta) {
+    super.update(delta);
+
+    angle += delta * turn_speed;
   }
 
 }

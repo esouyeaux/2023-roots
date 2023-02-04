@@ -7,6 +7,7 @@ import 'components/attack.dart';
 import 'components/attacks/default.dart';
 import 'components/attacks/attack2.dart';
 import 'components/attacks/pod_shot.dart';
+import 'components/attacks/vine.dart';
 import 'dart:math';
 
 class RootsGame extends FlameGame {
@@ -20,7 +21,8 @@ class RootsGame extends FlameGame {
     add(_player);
     _attack.add(DefaultAttack());
     // _attack.add(Attack2());
-    _attack.add(PodShot());
+    //_attack.add(PodShot());
+    _attack.add(Vine());
     _player.position = _world.size / 2;
     camera.followComponent(_player,
         worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));
@@ -44,6 +46,7 @@ class RootsGame extends FlameGame {
           add(atk);
           atk.shown = true;
       } else if (atk.shown && atk.attackCD > atk.attackDuration) {
+        atk.attackCD -= atk.attackDuration;
           remove(atk);
           atk.shown = false;
       }

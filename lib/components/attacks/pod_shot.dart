@@ -5,7 +5,7 @@ import '../attack.dart';
 class PodShot extends Attack {
   late final SpriteAnimation _standingAnimation;
 
-    PodShot () : super (20.0, 2, 4, Vector2(-10, -10));
+    PodShot () : super (Vector2.all(20.0), 2, 4, Vector2(-10, -10));
 
   @override
   Future<void> onLoad() async {
