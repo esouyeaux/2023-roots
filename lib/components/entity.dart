@@ -26,6 +26,7 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
     this.imagePath,
     Vector2? spawnPos
     ) : super(
+    priority: 2,
     size: Vector2.all(80.0),
     position: spawnPos,
   );
