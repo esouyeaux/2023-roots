@@ -9,9 +9,10 @@ class Attack extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   bool shown = false;
   Vector2 direction = Vector2(0, 0);
   Vector2 attack_spawn = Vector2(0, 0);
+  double damage_multiplier = 0;
 
 
-    Attack(attack_size, this.attackFrequency, this.attackDuration, this.attack_spawn) : super(
+    Attack(attack_size, this.attackFrequency, this.attackDuration, this.attack_spawn, this.damage_multiplier) : super(
     position: Vector2(0.0, 0.0),
     size: attack_size
     );

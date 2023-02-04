@@ -5,7 +5,7 @@ import '../attack.dart';
 class Attack2 extends Attack {
   late final SpriteAnimation _standingAnimation;
 
-    Attack2 () : super (Vector2.all(50.0), 7, 3, Vector2(-25, 0));
+    Attack2 () : super (Vector2.all(50.0), 7, 3, Vector2(-25, 0), 100);
 
   @override
   Future<void> onLoad() async {

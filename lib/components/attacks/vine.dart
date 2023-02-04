@@ -6,7 +6,7 @@ class Vine extends Attack {
   late final SpriteAnimation _standingAnimation;
   double turn_speed = 2;
 
-    Vine () : super (Vector2(200.0, 50), 5, 4, Vector2(0, 0));
+    Vine () : super (Vector2(200.0, 50), 5, 4, Vector2(0, 0), 20);
 
   @override
   Future<void> onLoad() async {
