@@ -19,6 +19,7 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   EntityType entityType = EntityType.sprout;
 
   Entity(this.imagePath): super(
+    priority: 2,
     size: Vector2.all(80.0)
   );
 
