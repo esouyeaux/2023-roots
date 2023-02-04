@@ -1,6 +1,10 @@
 import 'dart:ui';
+import 'package:roots_2023/components/monster.dart';
+import 'package:flame/components.dart';
+
 import 'components/player.dart';
 import 'components/world.dart';
+import 'components/enemy_manager.dart';
 import 'package:flame/game.dart';
 import '../helpers/direction.dart';
 import 'components/attack.dart';
@@ -12,24 +16,25 @@ import 'dart:math';
 
 class RootsGame extends FlameGame {
   final World _world = World();
-  final Player _player = Player();
+  final Player player = Player();
   final List<Attack> _attack = [];
 
   @override
   Future<void> onLoad() async {
     await add(_world);
-    add(_player);
+    player.anchor = Anchor.center;
+    add(player);
+    EnemyManager enemyManager = EnemyManager(player);
+    add(enemyManager);
     _attack.add(DefaultAttack());
-    // _attack.add(Attack2());
-    //_attack.add(PodShot());
     _attack.add(Vine());
-    _player.position = _world.size / 2;
-    camera.followComponent(_player,
+    player.position = _world.size / 2;
+    camera.followComponent(player,
         worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));
   }
 
   void onJoypadDirectionChanged(Direction direction) {
-    _player.direction = direction;
+    player.direction = direction;
   }
 
   @override
@@ -37,11 +42,10 @@ class RootsGame extends FlameGame {
     super.update(delta);
 
     for (var atk in _attack) {
-      //atk.update(delta);
       atk.attackCD += delta;
       if (!atk.shown && atk.attackCD > atk.attackFrequency) {
         atk.attackCD -= atk.attackFrequency;
-          atk.position = _player.position + (_player.size / 2) + atk.attack_spawn;
+          atk.position = player.position + atk.attack_spawn;
           atk.direction = Vector2(Random().nextInt(201) - 100.5, Random().nextInt(201) - 100.5);
           add(atk);
           atk.shown = true;
