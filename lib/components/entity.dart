@@ -7,7 +7,7 @@ import '../helpers/entity.dart';
 class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   // display
   String imagePath;
-  final double _animationSpeed = 0.15;
+  final double _animationSpeed = 0.3;
   late final SpriteAnimation _standingAnimation;
   Direction direction = Direction.none;
 
@@ -19,7 +19,7 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   EntityType entityType = EntityType.sprout;
 
   Entity(this.imagePath): super(
-    size: Vector2.all(50.0)
+    size: Vector2.all(80.0)
   );
 
   @override
@@ -31,7 +31,7 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
       image: await gameRef.images.load(imagePath),
-      srcSize: Vector2(29.0, 32.0),
+      srcSize: Vector2(64.0, 64.0),
     );
     _standingAnimation
     = spriteSheet.createAnimation(row: 0, stepTime: _animationSpeed, to: 2);
@@ -64,18 +64,30 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   }
 
   void moveUp(double delta) {
-    position.add(Vector2(0, -(delta * _moveSpeed)));
+    if (position.y - (delta * _moveSpeed) < 0)
+      position.y = 0;
+    else
+      position.add(Vector2(0, -(delta * _moveSpeed)));
   }
 
   void moveDown(double delta) {
+    if (position.y + delta * _moveSpeed > 2400 - size.y)
+      position.y = 2400 - size.y;
+    else
     position.add(Vector2(0, delta * _moveSpeed));
   }
 
   void moveLeft(double delta) {
-    position.add(Vector2(-(delta * _moveSpeed), 0));
+    if (position.x - (delta * _moveSpeed) < 0)
+      position.x = 0;
+    else
+      position.add(Vector2(-(delta * _moveSpeed), 0));
   }
 
   void moveRight(double delta) {
-    position.add(Vector2(delta * _moveSpeed, 0));
+    if (position.x + delta * _moveSpeed > 2400 - size.x)
+      position.x = 2400 - size.x;
+    else
+      position.add(Vector2(delta * _moveSpeed, 0));
   }
 }
