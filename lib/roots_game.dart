@@ -6,6 +6,8 @@ import '../helpers/direction.dart';
 import 'components/attack.dart';
 import 'components/attacks/default.dart';
 import 'components/attacks/attack2.dart';
+import 'components/attacks/pod_shot.dart';
+import 'dart:math';
 
 class RootsGame extends FlameGame {
   final World _world = World();
@@ -17,7 +19,8 @@ class RootsGame extends FlameGame {
     await add(_world);
     add(_player);
     _attack.add(DefaultAttack());
-    _attack.add(Attack2());
+    // _attack.add(Attack2());
+    _attack.add(PodShot());
     _player.position = _world.size / 2;
     camera.followComponent(_player,
         worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));
@@ -32,17 +35,17 @@ class RootsGame extends FlameGame {
     super.update(delta);
 
     for (var atk in _attack) {
+      //atk.update(delta);
       atk.attackCD += delta;
-      if (atk.attackCD > atk.attackFrequency) {
+      if (!atk.shown && atk.attackCD > atk.attackFrequency) {
         atk.attackCD -= atk.attackFrequency;
-        if (!atk.shown) {
-          atk.position = _player.position;
+          atk.position = _player.position + (_player.size / 2) + atk.attack_spawn;
+          atk.direction = Vector2(Random().nextInt(201) - 100.5, Random().nextInt(201) - 100.5);
           add(atk);
           atk.shown = true;
-        } else {
+      } else if (atk.shown && atk.attackCD > atk.attackDuration) {
           remove(atk);
           atk.shown = false;
-        }
       }
     }
   }
