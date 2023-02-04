@@ -1,7 +1,4 @@
-import 'dart:ui';
-import 'package:roots_2023/components/monster.dart';
 import 'package:flame/components.dart';
-
 import 'components/player.dart';
 import 'components/world.dart';
 import 'components/enemy_manager.dart';
@@ -9,10 +6,10 @@ import 'package:flame/game.dart';
 import '../helpers/direction.dart';
 import 'components/attack.dart';
 import 'components/attacks/default.dart';
-import 'components/attacks/attack2.dart';
-import 'components/attacks/pod_shot.dart';
 import 'components/attacks/vine.dart';
 import 'dart:math';
+import 'components/world_collidable.dart';
+import 'helpers/map_loader.dart';
 
 class RootsGame extends FlameGame {
   final World _world = World();
@@ -29,8 +26,9 @@ class RootsGame extends FlameGame {
     _attack.add(DefaultAttack());
     _attack.add(Vine());
     player.position = _world.size / 2;
-    camera.followComponent(player,
-        worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));
+    // todo add player collision
+    camera.followComponent(player);
+    addWorldCollision();
   }
 
   void onJoypadDirectionChanged(Direction direction) {
@@ -57,4 +55,11 @@ class RootsGame extends FlameGame {
     }
   }
 
+  void addWorldCollision() async =>
+    (await MapLoader.readRayWorldCollisionMap()).forEach((rect) {
+      add(WorldCollidable()
+        ..position = Vector2(rect.left, rect.top)
+        ..width = rect.width
+        ..height = rect.height);
+    });
 }
