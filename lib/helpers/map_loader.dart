@@ -31,17 +31,18 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class MapLoader {
-  static Future<List<Rect>> readRayWorldCollisionMap() async {
+  static Future<List<Rect>> readWorldCollisionMap() async {
     final collidableRects = <Rect>[];
     final dynamic collisionMap = json.decode(
-        await rootBundle.loadString('assets/rayworld_collision_map.json'));
+        await rootBundle.loadString('assets/world_collidable.json'));
 
     for (final dynamic data in collisionMap['objects']) {
       collidableRects.add(Rect.fromLTWH(
-          data['x'] as double,
-          data['y'] as double,
-          data['width'] as double,
-          data['height'] as double));
+          data['x'].toDouble(),
+          data['y'].toDouble(),
+          data['width'].toDouble(),
+          data['height'].toDouble()
+      ));
     }
 
     return collidableRects;

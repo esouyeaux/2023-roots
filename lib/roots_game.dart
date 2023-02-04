@@ -56,7 +56,7 @@ class RootsGame extends FlameGame {
   }
 
   void addWorldCollision() async =>
-    (await MapLoader.readRayWorldCollisionMap()).forEach((rect) {
+    (await MapLoader.readWorldCollisionMap()).forEach((rect) {
       add(WorldCollidable()
         ..position = Vector2(rect.left, rect.top)
         ..width = rect.width
