@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import '../helpers/direction.dart';
 import 'components/attack.dart';
 import 'components/attacks/default.dart';
+import 'components/attacks/attack2.dart';
 
 class RootsGame extends FlameGame {
   final World _world = World();
@@ -15,7 +16,8 @@ class RootsGame extends FlameGame {
   Future<void> onLoad() async {
     await add(_world);
     add(_player);
-    _attack.add(DefaultAttack(_player.position));
+    _attack.add(DefaultAttack());
+    _attack.add(Attack2());
     _player.position = _world.size / 2;
     camera.followComponent(_player,
         worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));

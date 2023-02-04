@@ -2,10 +2,10 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import '../attack.dart';
 
-class DefaultAttack extends Attack {
+class Attack2 extends Attack {
   late final SpriteAnimation _standingAnimation;
 
-    DefaultAttack () : super (100.0, 3);
+    Attack2 () : super (50.0, 7);
 
   @override
   Future<void> onLoad() async {
@@ -14,11 +14,11 @@ class DefaultAttack extends Attack {
 
     Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
-      image: await gameRef.images.load("attack01_spritesheet.png"),
-      srcSize: Vector2(64.0, 32.0),
+      image: await gameRef.images.load("attack02_spritesheet.png"),
+      srcSize: Vector2(32.0, 32.0),
     );
     _standingAnimation
-    = spriteSheet.createAnimation(row: 0, stepTime: 0.3, to: 2);
+    = spriteSheet.createAnimation(row: 0, stepTime: 1000000, to: 1);
   }
 
 }
