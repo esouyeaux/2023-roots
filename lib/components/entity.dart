@@ -15,16 +15,23 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   final double _attack = 300.0;
   final double _attackSpeed = 300.0;
   final double _defense = 300.0;
-  final double _moveSpeed = 300.0;
+  double _moveSpeed = 300.0;
+
+  double get getMoveSpeed => _moveSpeed;
+  set setMoveSpeed(double moveSpeed) => _moveSpeed = moveSpeed;
+
   EntityType entityType = EntityType.sprout;
 
-  Entity(this.imagePath): super(
-    size: Vector2.all(80.0)
+  Entity(
+    this.imagePath,
+    Vector2? spawnPos
+    ) : super(
+    size: Vector2.all(80.0),
+    position: spawnPos,
   );
 
   @override
   Future<void> onLoad() async {
-    position = gameRef.size / 2;
     _loadAnimations().then((_) => {animation = _standingAnimation});
   }
 
