@@ -27,40 +27,24 @@
     THE SOFTWARE. **/
 
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
-import 'package:roots_2023/roots_game.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-class MainGamePage extends StatefulWidget {
-  const MainGamePage({Key? key}) : super(key: key);
+class MapLoader {
+  static Future<List<Rect>> readWorldCollisionMap() async {
+    final collidableRects = <Rect>[];
+    final dynamic collisionMap = json.decode(
+        await rootBundle.loadString('assets/world_collidable.json'));
 
-  @override
-  MainGameState createState() => MainGameState();
-}
+    for (final dynamic data in collisionMap['objects']) {
+      collidableRects.add(Rect.fromLTWH(
+          data['x'].toDouble(),
+          data['y'].toDouble(),
+          data['width'].toDouble(),
+          data['height'].toDouble()
+      ));
+    }
 
-class MainGameState extends State<MainGamePage> {
-  RootsGame game = RootsGame();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // WillPopScope provides us a way to decide if
-      // this widget should be poped or not when user
-      // presses the back button.
-      backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
-      body: Stack(
-      //   // GameWidget is useful to inject the underlying
-      //   // widget of any class extending from Flame's Game class.
-        children: [
-          GameWidget(
-              game: game,
-              overlayBuilderMap: {
-              'timerOverlay': (BuildContext context, RootsGame game) {
-                return Text(game.getFormattedRemainingTime());
-                },
-              },
-            ),
-          ],
-        ),
-      );
+    return collidableRects;
   }
 }

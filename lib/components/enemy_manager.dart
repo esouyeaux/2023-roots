@@ -32,9 +32,9 @@ class EnemyManager extends Component with HasGameRef {
   }
 
   @override
-  void update(double delta) {
-    super.update(delta);
+  void update(double dt) {
+    super.update(dt);
     // Update timers with delta time to make them tick.
-    timer.update(delta);
+    timer.update(dt);
   }
 }
