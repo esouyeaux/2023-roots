@@ -9,10 +9,14 @@ class VineOption extends Option {
         "options/vine.png"
     );
 
-  //@override
-  //bool onTapUp(_) {
-  //  for (var ga in this.g)
-  //      ga(Vine());
-  //}
+  @override
+  bool onTapUp(_) {
+    this.clicked = true;
+    return (true);
+  }
 
+  @override
+  Attack getAttack() {
+    return (Vine());
+  }
 }

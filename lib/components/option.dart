@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'attack.dart';
 
-class Option extends SpriteComponent with HasGameRef<RootsGame> {
+abstract class Option extends SpriteComponent with HasGameRef<RootsGame>, Tappable {
   String imagePath;
+  bool clicked = false;
+
+  Attack getAttack();
 
     Option(this.imagePath) : super(
     priority: 5,

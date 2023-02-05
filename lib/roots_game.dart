@@ -16,10 +16,10 @@ import 'components/attacks/pod_shot.dart';
 import 'components/attacks/vine.dart';
 import 'dart:math';
 
-class RootsGame extends FlameGame {
+class RootsGame extends FlameGame with HasTappables {
   final World _world = World();
   final Player player = Player();
-  final List<Attack> _attack = [];
+  final List<Attack> attack = [];
   final List<Option> option = [];
   final OptionManager options_manager = OptionManager();
   bool in_menu = true;
@@ -32,8 +32,6 @@ class RootsGame extends FlameGame {
     EnemyManager enemyManager = EnemyManager(player);
     add(enemyManager);
     createMenu();
-    _attack.add(DefaultAttack());
-    _attack.add(Vine());
     player.position = _world.size / 2;
     camera.followComponent(player,
         worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y));
@@ -48,8 +46,18 @@ class RootsGame extends FlameGame {
   void update(double delta) {
     super.update(delta);
 
+    options_manager.update(option);
+    if (options_manager.pick_ready) {
+      remove(option[0]);
+      remove(option[1]);
+      options_manager.getOption(option, attack);
+      option.clear();
+      in_menu = false;
+      //enemy_manager.active = true;
+    }
+
     if (!in_menu) {
-      for (var atk in _attack) {
+      for (var atk in attack) {
         atk.attackCD += delta;
         if (!atk.shown && atk.attackCD > atk.attackFrequency) {
           atk.attackCD -= atk.attackFrequency;
@@ -64,15 +72,6 @@ class RootsGame extends FlameGame {
         }
       }
     }
-  }
-
-  void add_attack(Attack atk) {
-    _attack.add(atk);
-    remove(option[0]);
-    remove(option[1]);
-    option.clear();
-    in_menu = false;
-    //enemy_manager.active = true;
   }
 
   void createMenu() {

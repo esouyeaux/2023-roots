@@ -9,10 +9,15 @@ class ShockwaveOption extends Option {
         "options/shockwave.png"
     );
 
-  //@override
-  //bool onTapUp(_) {
-  //  for (var ga in this.g)
-  //      ga(DefaultAttack());
-  //}
+  @override
+  bool onTapUp(_) {
+    this.clicked = true;
+    return (true);
+  }
+
+  @override
+  Attack getAttack() {
+    return (DefaultAttack());
+  }
 
 }

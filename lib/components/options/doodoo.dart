@@ -9,10 +9,15 @@ class DoodooOption extends Option {
         "options/doodoo.png"
     );
 
-  //@override
-  //bool onTapUp(_) {
-  //  for (var ga in this.g)
-  //      ga(Attack2());
-  //}
+  @override
+  bool onTapUp(_) {
+    this.clicked = true;
+    return (true);
+  }
+
+  @override
+  Attack getAttack() {
+    return (Attack2());
+  }
 
 }

@@ -9,10 +9,15 @@ class PeaOption extends Option {
         "options/peashot.png"
     );
 
-  //@override
-  //bool onTapUp(_) {
-  //  for (var ga in this.g)
-  //      ga(PodShot());
-  //}
+  @override
+  bool onTapUp(_) {
+    this.clicked = true;
+    return (true);
+  }
+
+  @override
+  Attack getAttack() {
+    return (PodShot());
+  }
 
 }
