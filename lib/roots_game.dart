@@ -107,14 +107,6 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables,
     add(option[1]);
   }
 
-  void addWorldCollision() async =>
-    (await MapLoader.readWorldCollisionMap()).forEach((rect) {
-      add(WorldCollidable()
-        ..position = Vector2(rect.left, rect.top)
-        ..width = rect.width
-        ..height = rect.height);
-    });
-
   String getFormattedRemainingTime() {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(countdown.inMinutes.remainder(60));
