@@ -16,7 +16,7 @@ import 'components/world_collidable.dart';
 import 'helpers/map_loader.dart';
 import 'overlays/hud.dart';
 
-class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables {
+class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables, HasCollisionDetection {
   late Timer interval;
   final timerOverlay = 'timerOverlay';
   Duration countdown = const Duration(minutes: 5);
@@ -31,7 +31,7 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables 
   JoystickComponent joystick = JoystickComponent(
       anchor: Anchor.center,
       position: Vector2(-100, -100),
-      // size: 100,
+      size: 100,
       background: CircleComponent(
         radius: 60,
         paint: Paint()..color = Colors.white.withOpacity(0.5),
@@ -55,15 +55,15 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables 
     player.position = _world.size / 2;
     // todo add player collision
     camera.followComponent(player);
-    addWorldCollision();
-
     add(Hud());
+    add(ScreenHitbox());
   }
 
   @override
   void onPanDown(DragDownInfo info) {
-    if (!in_menu)
+    if (!in_menu) {
       joystick.position = Vector2(info.eventPosition.widget.x, info.eventPosition.widget.y);
+    }
   }
 
   @override

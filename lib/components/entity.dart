@@ -1,10 +1,13 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+
 import 'package:roots_2023/roots_game.dart';
 import '../helpers/direction.dart';
 import '../helpers/entity.dart';
+import 'world_collidable.dart';
 
-class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
+
+class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame>{
   // display
   String imagePath;
   final double _animationSpeed = 0.3;
