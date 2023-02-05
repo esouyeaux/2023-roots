@@ -23,13 +23,14 @@ class RootsGame extends FlameGame with HasTappables {
   final List<Option> option = [];
   final OptionManager options_manager = OptionManager();
   bool in_menu = true;
+  late EnemyManager enemyManager;
 
   @override
   Future<void> onLoad() async {
     await add(_world);
     player.anchor = Anchor.center;
     add(player);
-    EnemyManager enemyManager = EnemyManager(player);
+    enemyManager = EnemyManager(player);
     add(enemyManager);
     createMenu();
     player.position = _world.size / 2;
@@ -53,7 +54,7 @@ class RootsGame extends FlameGame with HasTappables {
       options_manager.getOption(option, attack);
       option.clear();
       in_menu = false;
-      //enemy_manager.active = true;
+      enemyManager.active = true;
     }
 
     if (!in_menu) {
