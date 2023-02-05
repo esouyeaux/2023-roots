@@ -29,9 +29,6 @@
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:roots_2023/roots_game.dart';
-import 'helpers/direction.dart';
-import 'helpers/joypad.dart';
-
 
 class MainGamePage extends StatefulWidget {
   const MainGamePage({Key? key}) : super(key: key);
@@ -46,22 +43,17 @@ class MainGameState extends State<MainGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
-        body: Stack(
-          children: [
-            GameWidget(game: game),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Joypad(onDirectionChanged: onJoypadDirectionChanged),
-              ),
-            )
+      // WillPopScope provides us a way to decide if
+      // this widget should be poped or not when user
+      // presses the back button.
+      backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+      body: Stack(
+      //   // GameWidget is useful to inject the underlying
+      //   // widget of any class extending from Flame's Game class.
+        children: [
+          GameWidget(game: game)
           ],
-        ));
-  }
-
-  void onJoypadDirectionChanged(Direction direction) {
-    game.onJoypadDirectionChanged(direction);
+        ),
+      );
   }
 }
