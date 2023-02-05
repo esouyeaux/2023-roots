@@ -14,6 +14,7 @@ import 'components/attacks/vine.dart';
 import 'dart:math';
 import 'components/world_collidable.dart';
 import 'helpers/map_loader.dart';
+import 'overlays/hud.dart';
 
 class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables {
   late Timer interval;
@@ -55,6 +56,8 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables 
     // todo add player collision
     camera.followComponent(player);
     addWorldCollision();
+
+    add(Hud());
   }
 
   @override

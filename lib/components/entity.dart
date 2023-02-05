@@ -12,6 +12,10 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   Direction direction = Direction.none;
 
   // attributes
+  int _health = 300; // 1 heart = 100hp
+  int get getHealth => _health;
+  set setHealth(int h) => _health = h;
+
   final double _attack = 300.0;
   final double _attackSpeed = 300.0;
   final double _defense = 300.0;
