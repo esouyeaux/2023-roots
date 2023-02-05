@@ -22,12 +22,13 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
 
   EntityType entityType = EntityType.sprout;
 
+  // todo : take size in constructor to display larger enemies
   Entity(
     this.imagePath,
     Vector2? spawnPos
     ) : super(
     priority: 2,
-    size: Vector2.all(80.0),
+    size: Vector2.all(40.0),
     position: spawnPos,
   );
 
@@ -39,7 +40,7 @@ class Entity extends SpriteAnimationComponent with HasGameRef<RootsGame> {
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
       image: await gameRef.images.load(imagePath),
-      srcSize: Vector2(64.0, 64.0),
+      srcSize: Vector2(16.0, 16.0),
     );
     _standingAnimation
     = spriteSheet.createAnimation(row: 0, stepTime: _animationSpeed, to: 2);
