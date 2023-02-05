@@ -51,7 +51,14 @@ class MainGameState extends State<MainGamePage> {
       //   // GameWidget is useful to inject the underlying
       //   // widget of any class extending from Flame's Game class.
         children: [
-          GameWidget(game: game)
+          GameWidget(
+              game: game,
+              overlayBuilderMap: {
+              'timerOverlay': (BuildContext context, RootsGame game) {
+                return Text(game.getFormattedRemainingTime());
+                },
+              },
+            ),
           ],
         ),
       );
