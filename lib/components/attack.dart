@@ -1,8 +1,9 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:roots_2023/roots_game.dart';
 
-class Attack extends SpriteAnimationComponent with HasGameRef<RootsGame> {
+class Attack extends SpriteAnimationComponent with HasGameRef<RootsGame>, CollisionCallbacks {
   double attackCD = 0;
   double attackFrequency = 3;
   double attackDuration = 3;
@@ -17,4 +18,15 @@ class Attack extends SpriteAnimationComponent with HasGameRef<RootsGame> {
     size: attack_size
     );
 
+  @override
+  void onMount() {
+    super.onMount();
+    final shape = CircleHitbox.relative(
+      1,
+      parentSize: size,
+      position: size / 2,
+      anchor: Anchor.center,
+    );
+    add(shape);
+  }
 }

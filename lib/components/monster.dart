@@ -1,3 +1,5 @@
+import 'package:roots_2023/components/attack.dart';
+
 import 'entity.dart';
 import 'package:flame/components.dart';
 import 'player.dart';
@@ -11,8 +13,8 @@ class Monster extends Entity with CollisionCallbacks {
   late Player player;
   late Vector2 velocity;
 
-  Monster(position) : super(
-    'axe_spritesheet.png', 
+  Monster(path, position) : super(
+    path, 
     position);
 
   @override
@@ -46,6 +48,9 @@ class Monster extends Entity with CollisionCallbacks {
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
+    if (other is Attack) {
+      removeFromParent();
+    }
     // if (other is WorldCollidable) {
     //   }
     // }
