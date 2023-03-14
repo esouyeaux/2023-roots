@@ -13,14 +13,15 @@ class Monster extends Entity with CollisionCallbacks {
   late Player player;
   late Vector2 velocity;
 
-  Monster(path, position) : super(
-    path, 
+  Monster(monsterType, position) : super(
+    "monster_$monsterType.png",
     position);
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     player = gameRef.player;
+    setHealth = 100;
   }
 
   @override
@@ -49,7 +50,12 @@ class Monster extends Entity with CollisionCallbacks {
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is Attack) {
-      removeFromParent();
+      //modify 100 by other.dmg ?
+      setHealth = getHealth - 100;
+      if (getHealth <= 0) {
+        removeFromParent();
+        player.setXpToNextLevel = player.getXpToNextLevel - 10;
+      }
     }
     // if (other is WorldCollidable) {
     //   }

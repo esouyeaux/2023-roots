@@ -43,6 +43,16 @@ class HeartHealthComponent extends SpriteGroupComponent<HeartState> with HasGame
 
   @override
   void update(double dt) {
+    if (game.player.getHealth % 100 == 75) {
+      current = HeartState.quarterHalf;
+    } else if (game.player.getHealth % 100 == 50) {
+      current = HeartState.half;
+    } else if (game.player.getHealth % 100 == 25) {
+      current = HeartState.quarter;
+    } else if (game.player.getHealth % 100 == 0) {
+      current = HeartState.full;
+    }
+
     /* todo handle health depending on player.health
   if (game.player < heartNumber) {
     current = HeartState.unavailable;

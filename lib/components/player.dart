@@ -4,6 +4,7 @@ import 'entity.dart';
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/services.dart';
 
 import 'world_collidable.dart';
 
@@ -17,10 +18,15 @@ class Player extends Entity with CollisionCallbacks {
   late ShapeHitbox hitbox;
   bool _isOnEdge = false;
 
+  int _xpToNextLevel = 100;
+  int get getXpToNextLevel => _xpToNextLevel;
+  set setXpToNextLevel(int xp) => _xpToNextLevel = xp;
+
   Player({
     required this.joystick,
   }) : super('sapling_spritesheet.png', Vector2(0, 0));
   
+
 
 //activate to view hitbox
   @override
@@ -65,6 +71,12 @@ class Player extends Entity with CollisionCallbacks {
     if (!joystick.delta.isZero()) {
       position.add(joystick.relativeDelta.normalized() * getMoveSpeed * dt);
     }
+    if (_xpToNextLevel <= 0) {
+      //modify sprite on level up
+      print("ça devrait pop le menu");
+      game.createMenu();
+      _xpToNextLevel = 100;
+    }
   }
 
   @override
@@ -79,7 +91,13 @@ class Player extends Entity with CollisionCallbacks {
     }
     if (other is Monster && !_isOnEdge) {
         position.add(other.velocity * 25);
-        print("dmgTaken");
+        setHealth = getHealth - 25;
+        print(getHealth);
+        if (getHealth <= 0) {
+          removeFromParent();
+          //modify to endscreen + replay ?
+          SystemNavigator.pop();
+        }
     }
   }
 

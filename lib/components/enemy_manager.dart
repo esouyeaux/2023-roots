@@ -20,7 +20,7 @@ class EnemyManager extends Component with HasGameRef {
       double spawnAngle = random.nextDouble() * 2 * pi;
       Vector2 spawnPosition = player.position + Vector2(cos(spawnAngle) * 400, sin(spawnAngle) * 400);
       int monsterType = random.nextInt(2) + 1;
-      Monster monster = Monster('monster_$monsterType.png', spawnPosition);
+      Monster monster = Monster(monsterType, spawnPosition);
       monster.anchor = Anchor.center;
       gameRef.add(monster);
     }
