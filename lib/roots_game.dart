@@ -51,8 +51,8 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables,
     add(player);
     enemyManager = EnemyManager(player);
     add(enemyManager);
-    createMenu();
     player.position = _world.size / 2;
+    createMenu();
     // todo add player collision
     camera.followComponent(player);
     add(Hud());
@@ -102,7 +102,7 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables,
   void createMenu() {
     in_menu = true;
 
-    options_manager.createMenu(option, _world.size / 2);
+    options_manager.createMenu(option, player.position);
     add(option[0]);
     add(option[1]);
   }
