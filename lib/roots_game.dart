@@ -69,10 +69,12 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables,
   @override
   void update(double delta) {
     super.update(delta);
-    interval.update(delta);
+    if (!in_menu)
+      interval.update(delta);
   
     options_manager.update(option);
     if (options_manager.pick_ready) {
+      player.frozen = false;
       remove(option[0]);
       remove(option[1]);
       options_manager.getOption(option, attack);
@@ -102,6 +104,8 @@ class RootsGame extends FlameGame with HasDraggables, PanDetector, HasTappables,
   void createMenu() {
     in_menu = true;
 
+    player.frozen = true;
+    enemyManager.active = false;
     options_manager.createMenu(option, player.position);
     add(option[0]);
     add(option[1]);

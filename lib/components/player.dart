@@ -21,6 +21,7 @@ class Player extends Entity with CollisionCallbacks {
   int _xpToNextLevel = 100;
   int get getXpToNextLevel => _xpToNextLevel;
   set setXpToNextLevel(int xp) => _xpToNextLevel = xp;
+  bool frozen = false;
 
   Player({
     required this.joystick,
@@ -67,6 +68,8 @@ class Player extends Entity with CollisionCallbacks {
 
   @override
   void update(double dt) {
+    if (frozen)
+      return;
     super.update(dt);
     if (!joystick.delta.isZero()) {
       position.add(joystick.relativeDelta.normalized() * getMoveSpeed * dt);

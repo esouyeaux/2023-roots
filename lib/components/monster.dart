@@ -12,6 +12,7 @@ class Monster extends Entity with CollisionCallbacks {
 
   late Player player;
   late Vector2 velocity;
+  bool active = true;
 
   Monster(monsterType, position) : super(
     "monster_$monsterType.png",
@@ -26,6 +27,8 @@ class Monster extends Entity with CollisionCallbacks {
 
   @override
   void update(double delta) {
+    if (!active)
+      return;
     super.update(delta);
     velocity = player.position - position;
     velocity.normalize();

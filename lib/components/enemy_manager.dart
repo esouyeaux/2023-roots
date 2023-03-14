@@ -10,6 +10,7 @@ class EnemyManager extends Component with HasGameRef {
   late Player player;
   Random random = Random();
   bool active = false;
+  List<Monster> monsters = [];
 
   EnemyManager(this.player) : super () {
     timer = Timer(2, onTick: _spawnEnemy, repeat: true);
@@ -23,6 +24,7 @@ class EnemyManager extends Component with HasGameRef {
       Monster monster = Monster(monsterType, spawnPosition);
       monster.anchor = Anchor.center;
       gameRef.add(monster);
+      monsters.add(monster);
     }
   }
 
@@ -35,6 +37,9 @@ class EnemyManager extends Component with HasGameRef {
   @override
   void update(double dt) {
     super.update(dt);
+    for (var mon in monsters) {
+      mon.active = active;
+    }
     // Update timers with delta time to make them tick.
     timer.update(dt);
   }
