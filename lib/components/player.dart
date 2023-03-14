@@ -76,9 +76,8 @@ class Player extends Entity with CollisionCallbacks {
     }
     if (_xpToNextLevel <= 0) {
       //modify sprite on level up
-      print("ça devrait pop le menu");
-      game.createMenu();
       _xpToNextLevel = 100;
+      game.createMenu();
     }
   }
 

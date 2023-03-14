@@ -19,6 +19,8 @@ class OptionPicker {
     }
 
     Option getOption() {
+        if (_options.length == 0)
+            return (PeaOption());
         Option ret = _options[Random().nextInt(_options.length)];
 
         _options.remove(ret);

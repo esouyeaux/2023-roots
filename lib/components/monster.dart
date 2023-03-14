@@ -49,22 +49,19 @@ class Monster extends Entity with CollisionCallbacks {
     add(shape);
   }
 
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
+@override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other)
+  {
+    super.onCollisionStart(intersectionPoints, other);
     if (other is Attack) {
-      //modify 100 by other.dmg ?
-      setHealth = getHealth - 100;
+          setHealth = getHealth - 100;
       if (getHealth <= 0) {
         removeFromParent();
         player.setXpToNextLevel = player.getXpToNextLevel - 10;
+        print("xp left : ${player.getXpToNextLevel}");
       }
     }
-    // if (other is WorldCollidable) {
-    //   }
-    // }
-    // if (other is Player) {
-    //   removeFromParent();
-    //   }
-    }
+  }
 }

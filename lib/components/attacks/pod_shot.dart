@@ -1,11 +1,12 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:roots_2023/components/monster.dart';
 import '../attack.dart';
 
 class PodShot extends Attack {
   late final SpriteAnimation _standingAnimation;
 
-    PodShot () : super (Vector2.all(20.0), 2, 4, Vector2(-10, -10), 3);
+    PodShot () : super (Vector2.all(20.0), 0.5, 1, Vector2(-10, -10), 3);
 
   @override
   Future<void> onLoad() async {
@@ -25,7 +26,6 @@ class PodShot extends Attack {
   void update(double delta) {
     super.update(delta);
     
-    this.position += Vector2(delta * this.direction.x, delta * this.direction.y);
+    this.position += Vector2(delta * this.direction.x * 2, delta * this.direction.y * 2);
   }
-
 }
